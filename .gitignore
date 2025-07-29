@@ -1,4 +1,47 @@
-.vs/
-obj/
+# Build outputs
 bin/
+obj/
+
+# Visual Studio files
+.vs/
 *.user
+*.suo
+*.userprefs
+*.log
+*.ide
+
+# Rider files
+.idea/
+*.sln.iml
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Generated files
+*.dll
+*.pdb
+*.cache
+*.config
+*.db
+
+# JetBrains Rider caches
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Plugin specific
+*.zip
+
+# Ignore plugin DLLs unless you want to commit them
+*.Plugin.dll
+
+# Ignore Dalamud runtime cache if any
+*.runtimeconfig.json
