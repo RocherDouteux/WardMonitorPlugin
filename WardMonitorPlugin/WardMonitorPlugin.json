@@ -1,0 +1,11 @@
+{
+  "Author": "RocherDouteux",
+  "Name": "WardMonitor",
+  "Punchline": "TODO",
+  "Description": "TODO",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "ward"
+  ],
+  "Main": "WardMonitorPlugin.Plugin"
+}
