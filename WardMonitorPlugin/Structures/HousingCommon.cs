@@ -43,6 +43,7 @@ namespace WardMonitorPlugin.Structures {
     }
     
     public enum TenantType : byte {
+        Both = 0,
         FreeCompany = 1,
         Personal = 2
     }

@@ -76,6 +76,9 @@ public class WardScanner : IDisposable
                                  : $"Unknown";
 
             var plots = new List<Plot>();
+            
+            var tenantType = wardInfo.TenantType.ToString();
+
 
             for (var i = 0; i < 60; i++)
             {
@@ -85,8 +88,9 @@ public class WardScanner : IDisposable
                 {
                     PlotNumber = i + 1,
                     Price = (int)entry.HousePrice,
-                    Size = "Not implemented",
-                    Available = (entry.InfoFlags & HousingFlags.PlotOwned) == 0
+                    Size = PlotSizeHelper.GetPlotSize(regionName, i + 1),
+                    Available = (entry.InfoFlags & HousingFlags.PlotOwned) == 0,
+                    TenantType = tenantType
                 });
             }
 

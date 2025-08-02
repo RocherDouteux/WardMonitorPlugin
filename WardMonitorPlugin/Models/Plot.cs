@@ -15,4 +15,7 @@ public class Plot
 
     [JsonPropertyName("available")]
     public bool Available { get; set; } = true;
+    
+    [JsonPropertyName("tenant_type")]
+    public string TenantType { get; set; } = "Unknown";
 }

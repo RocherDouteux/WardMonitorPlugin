@@ -29,9 +29,15 @@ namespace WardMonitorPlugin.Structures
                     InfoFlags = (HousingFlags)binaryReader.ReadByte(),
                     HouseAppeals = new sbyte[3]
                 };
-                for (var j = 0; j < 3; j++) infoEntry.HouseAppeals[j] = binaryReader.ReadSByte();
+                
+                for (var j = 0; j < 3; j++)
+                {
+                    infoEntry.HouseAppeals[j] = binaryReader.ReadSByte();
+                }
+
                 infoEntry.EstateOwnerName =
                     Encoding.UTF8.GetString(binaryReader.ReadBytes(32)).TrimEnd(new char[1]);
+                
                 wardInfo.HouseInfoEntries[i] = infoEntry;
 
                 // if a house is unowned, the ownerName can be literally anything, so set it to empty string
