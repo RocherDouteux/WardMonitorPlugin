@@ -55,27 +55,36 @@ public class WardScanner : IDisposable
 
     private unsafe void OnHousingWardInfo(void* agentBase, IntPtr dataPtr)
     {
+        HousingWardInfo snapshot;
+        try
+        {
+            snapshot = HousingWardInfo.Read(dataPtr);
+        }
+        catch (Exception ex)
+        {
+            Plugin.Log.Error($"Failed to read HousingWardInfo: {ex}");
+            housingWardInfoHook!.Original(agentBase, dataPtr);
+            return;
+        }
+        
         housingWardInfoHook!.Original(agentBase, dataPtr);
 
         if (!plugin.Configuration.EnableDataCollection)
             return;
 
-        Task.Run(() => HandleWardUpdateAsync(dataPtr));
+        Task.Run(() => HandleWardUpdateAsync(snapshot));
     }
 
-    private Task HandleWardUpdateAsync(IntPtr dataPtr)
+    private Task HandleWardUpdateAsync(HousingWardInfo wardInfo)
     {
         try
         {
-            var wardInfo = HousingWardInfo.Read(dataPtr);
             var territoryId = (uint)wardInfo.LandIdent.TerritoryTypeId;
             var wardNumber = (ushort)wardInfo.LandIdent.WardNumber;
 
-            var regionName = TerritoryToRegion.TryGetValue(territoryId, out var name)
-                                 ? name
-                                 : $"Unknown";
+            var regionName = TerritoryToRegion.GetValueOrDefault(territoryId, $"Unknown {territoryId}");
 
-            var plots = new List<Plot>();
+            var plots = new List<Plot>(60);
             
             var tenantType = wardInfo.TenantType.ToString();
 
